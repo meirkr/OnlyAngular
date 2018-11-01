@@ -12,17 +12,19 @@ export class AppComponent {
   nick = '';
   message = 'dummy';
   messages: string[] = [];
+  private connected = false;
 
   ngOnInit() {
     console.log('ngOnInit!')
     this.nick = window.prompt('Your name:', 'John');
-
-    this._hubConnection = new HubConnection('http://localhost:5000/chat');
+    this._hubConnection = new HubConnection('/chat');
+//    this._hubConnection = new HubConnection('http://localhost:5000/chat');
 
     this._hubConnection
       .start()
-      .then(() => console.log('Connection started!'))
-      .catch(err => console.log('Error while establishing connection :('));
+      .then(() => this.OnConnected())
+      .catch(err => console.log('Error while establishing connection :(' + err));
+
 
       this._hubConnection.on('sendToAll', (nick: string, receivedMessage: string) => {
         const text = `${nick}: ${receivedMessage}`;
@@ -31,6 +33,11 @@ export class AppComponent {
       });
 
 
+    }
+
+    private OnConnected() {
+      this.connected = true;
+      console.log('Connection started!');
     }
 
     public sendMessage(): void {

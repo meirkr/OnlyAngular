@@ -9,6 +9,7 @@
 
   <div class="container">
     <h2>Hello {{nick}}!</h2>
+    <h3>Connected: {{connected}}</h3>
     <!--form (ngSubmit)="sendMessage()" #chatForm="ngForm">
       <div>
         <label for="message">Message</label>
@@ -25,7 +26,7 @@
     <input type="text" id="message" name="message" [(ngModel)]="message" required>
   </div>
 
-      <button type="submit" id="sendmessage">
+      <button type="submit" id="sendmessage" [disabled]="!connected">
         Send
       </button>
     </form>
