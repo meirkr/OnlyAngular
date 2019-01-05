@@ -17,14 +17,25 @@ export class AppComponent {
   ngOnInit() {
     console.log('ngOnInit!')
     this.nick = window.prompt('Your name:', 'John');
-    this._hubConnection = new HubConnection('/chat');
-//    this._hubConnection = new HubConnection('http://localhost:5000/chat');
 
-    this._hubConnection
-      .start()
-      .then(() => this.OnConnected())
-      .catch(err => console.log('Error while establishing connection :(' + err));
+      this.reconnect();
 
+    }
+
+    private reconnect() {
+
+      this._hubConnection = new HubConnection('/chat');
+      //    this._hubConnection = new HubConnection('http://localhost:5000/chat');
+
+
+      this._hubConnection
+        .onclose(() => {
+          this.connected = false;
+          console.log('Disconnected');
+
+          this.reconnect();
+
+        });
 
       this._hubConnection.on('sendToAll', (nick: string, receivedMessage: string) => {
         const text = `${nick}: ${receivedMessage}`;
@@ -32,6 +43,15 @@ export class AppComponent {
         this.messages.push(text);
       });
 
+
+      this._hubConnection
+      .start()
+      .then(() => this.OnConnected())
+      .catch(err => {
+        this.connected = false;
+        console.log('Error while establishing connection :(' + err);
+        setTimeout(() => this.reconnect(), 5000);
+      });
 
     }
 
