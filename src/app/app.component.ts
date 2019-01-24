@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HubConnection } from '@aspnet/signalr-client';
+import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 
 @Component({
   selector: 'app-root',
@@ -24,9 +24,9 @@ export class AppComponent {
 
     private reconnect() {
 
-      this._hubConnection = new HubConnection('/chat');
-      //    this._hubConnection = new HubConnection('http://localhost:5000/chat');
-
+      this._hubConnection = new HubConnectionBuilder()
+        .withUrl('/chat')
+        .build();
 
       this._hubConnection
         .onclose(() => {
@@ -62,7 +62,7 @@ export class AppComponent {
 
     public sendMessage(): void {
       this._hubConnection
-        .invoke('sendToAll', this.nick, this.message)
+        .send('sendToAll', this.nick, this.message)
         .catch(err => console.error(err));
       }
 }
