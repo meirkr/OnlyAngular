@@ -40,7 +40,7 @@ export class AppComponent {
       this._hubConnection.on('sendToAll', (nick: string, receivedMessage: string) => {
         const text = `${nick}: ${receivedMessage}`;
         console.log(`arrived from ${nick}, message: ${receivedMessage}`);
-        this.messages.push(text);
+        this.messages.unshift(text);
       });
 
 

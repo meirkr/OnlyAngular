@@ -1,0 +1,30 @@
+version: '2.0'  
+services:  
+    rp:
+        image: signal_r_reverse_proxy
+        restart: always
+        networks:
+         - overlay
+        ports:
+            - "5000:80"
+        depends_on:
+            - frontend
+    frontend:
+        image: meirkr/signal_r_client:temp
+        networks:
+         - overlay
+        ports:
+            - "5001:80"
+        depends_on:
+            - backend
+    backend:
+        build: .
+        image: meirkr/signal_r_chat_server
+        networks:
+            - overlay
+        ports:
+            - "5002:80"
+
+
+networks:
+  overlay:
