@@ -61,8 +61,10 @@ export class AppComponent {
     }
 
     public sendMessage(): void {
+      var messageToSend = this.message;
+      this.message = '';
       this._hubConnection
-        .send('sendToAll', this.nick, this.message)
+        .send('sendToAll', this.nick, messageToSend)
         .catch(err => console.error(err));
       }
 }
