@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'app';
   private _hubConnection: HubConnection;
   nick = '';
-  message = 'dummy';
+  message = '';
   messages: string[] = [];
   private connected = false;
 
@@ -38,7 +38,10 @@ export class AppComponent {
         });
 
       this._hubConnection.on('sendToAll', (nick: string, receivedMessage: string) => {
-        const text = `${nick}: ${receivedMessage}`;
+        var senderTime = new Date();
+        var messageToSend = senderTime.toLocaleString() + ":  " + this.message;
+  
+        const text = `(${senderTime.toLocaleString()}) [${nick}]: ${receivedMessage}`;
         console.log(`arrived from ${nick}, message: ${receivedMessage}`);
         this.messages.unshift(text);
       });
@@ -61,9 +64,7 @@ export class AppComponent {
     }
 
     public sendMessage(): void {
-      var senderTime = new Date();
-//      var senderTime = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530')
-      var messageToSend = senderTime + ":  " + this.message;
+      var messageToSend = this.message;
       this.message = '';
       this._hubConnection
         .send('sendToAll', this.nick, messageToSend)
