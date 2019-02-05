@@ -10,7 +10,7 @@ services:
         depends_on:
             - frontend
     frontend:
-        image: meirkr/signal_r_client:temp
+        image: meirkr/signal_r_client
         networks:
          - overlay
         ports:
