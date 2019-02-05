@@ -16,7 +16,10 @@ export class AppComponent {
 
   ngOnInit() {
     console.log('ngOnInit!')
-    this.nick = window.prompt('Your name:', 'John');
+    do{
+      this.nick = window.prompt('Your name:', '');
+
+    } while (this.nick.length<=0);
 
       this.reconnect();
 
