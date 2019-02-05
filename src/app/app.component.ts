@@ -61,7 +61,9 @@ export class AppComponent {
     }
 
     public sendMessage(): void {
-      var messageToSend = this.message;
+      var senderTime = new Date();
+//      var senderTime = formatDate(new Date(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530')
+      var messageToSend = senderTime + ":  " + this.message;
       this.message = '';
       this._hubConnection
         .send('sendToAll', this.nick, messageToSend)

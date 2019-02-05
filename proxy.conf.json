@@ -1,6 +1,6 @@
 {
   "/chat/*": {
-    "target": "https://mkchat.azurewebsites.net:5002",
+    "target": "http://ip172-18-0-23-bhcv9gdrori00096jclg-5002.direct.labs.play-with-docker.com",
     "secure": true,
     "logLevel": "debug",
     "changeOrigin": true,
