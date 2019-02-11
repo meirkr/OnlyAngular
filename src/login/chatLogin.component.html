@@ -1,0 +1,14 @@
+<h1>Welcome to Meir's SignalR chat system</h1>
+<div></div>
+  <form (ngSubmit)="doLogin()" #loginForm="ngForm">
+    <div>
+      <label for="nick">Nick name?</label>
+      <input type="text" id="nick" name="nick" [(ngModel)]="nickName" required>
+    </div>
+  
+    <button type="submit" id="login" [disabled]="loggedIn">
+        login...
+    </button>
+
+</form>
+  

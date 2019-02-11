@@ -1,0 +1,30 @@
+
+  <h2>Hello {{nick}}!</h2>
+  <h3>Connected: {{connected}}</h3>
+  <!--form (ngSubmit)="sendMessage()" #chatForm="ngForm">
+    <div>
+      <label for="message">Message</label>
+      <input type="text" id="message" name="message" [(ngModel)]="message" required>
+    </div>
+    <button type="submit" id="sendmessage" [disabled]="!chatForm.valid">
+      Send
+    </button>
+  </form-->
+
+<form (ngSubmit)="sendMessage()" #chatForm="ngForm">
+  <div>
+    <label for="message">Message</label>
+    <input type="text" id="message" name="message" [(ngModel)]="message" required>
+  </div>
+
+  <button type="submit" id="sendmessage" [disabled]="!connected">
+      Send
+    </button>
+  </form>
+
+  <div class="container" *ngIf="messages.length > 0">
+    <div *ngFor="let message of messages">
+      <span>{{message}}</span>
+    </div>
+  </div>
+
