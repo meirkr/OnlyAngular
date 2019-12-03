@@ -11,6 +11,18 @@
     </button>
   </form-->
 
+<label 
+  (mousedown)="startMoving('left')" 
+  (mouseup)="stopMoving()">
+  <==
+</label>
+
+<label 
+  (mousedown)="startMoving('right')" 
+  (mouseup)="stopMoving()">
+  ==>
+</label>
+
 <form (ngSubmit)="sendMessage()" #chatForm="ngForm">
   <div>
     <label for="message">Message</label>
@@ -18,9 +30,9 @@
   </div>
 
   <button type="submit" id="sendmessage" [disabled]="!connected">
-      Send
-    </button>
-  </form>
+    Send
+  </button>
+</form>
 
   <div class="container" *ngIf="messages.length > 0">
     <div *ngFor="let message of messages">
